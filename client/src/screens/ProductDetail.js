@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Image, Row } from 'react-bootstrap';
+import { Button, Col, Image, ListGroup, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Rating from '../components/Rating';
 import products from '../products';
@@ -9,7 +9,7 @@ const ProductDetail = ({ match }) => {
   return (
     <>
       <Link to="/" className="btn btn-light">
-        BACK
+        <i className="fas fa-chevron-left mr-1"></i> BACK
       </Link>
       <Row className="my-3">
         <Col md={5} className="text-center">
@@ -19,15 +19,29 @@ const ProductDetail = ({ match }) => {
           <h4 style={{ textTransform: 'capitalize', letterSpacing: '1px' }}>{product.name}</h4>
           <p>{product.description}</p>
           <Row>
-            <Col md={4}>
+            <Col sm={4}>
               <h3 style={{ letterSpacing: '1px' }}>${product.price}</h3>
             </Col>
-            <Col md={8} className="text-right">
+            <Col sm={8} className="text-right">
               <Rating value={product.rating} text={`${product.numReviews} reviews`} />
             </Col>
           </Row>
         </Col>
-        <Col md={3}></Col>
+        <Col md={3}>
+          <ListGroup>
+            <ListGroup.Item>
+              <Row>
+                <Col>Status:</Col>
+                <Col style={{ color: product.countInStock ? 'green' : 'red', fontWeight: 'bold' }}>{product.countInStock >= 1 ? 'In stock' : 'Out of stock'}</Col>
+              </Row>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Button className="btn btn-block" disabled={product.countInStock === 0}>
+                Add to cart
+              </Button>
+            </ListGroup.Item>
+          </ListGroup>
+        </Col>
       </Row>
     </>
   );
