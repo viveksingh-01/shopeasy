@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Ecommerce app using MERN stack",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node server/server.js",
     "server": "nodemon server/server.js",
