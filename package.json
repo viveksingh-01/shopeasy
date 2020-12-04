@@ -1,0 +1,23 @@
+{
+  "name": "shopeasy",
+  "version": "1.0.0",
+  "description": "Ecommerce app using MERN stack",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viveksingh-01/shopeasy.git"
+  },
+  "author": "Vivek Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/viveksingh-01/shopeasy/issues"
+  },
+  "homepage": "https://github.com/viveksingh-01/shopeasy#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
