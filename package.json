@@ -9,6 +9,8 @@
     "server": "nodemon server/server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import": "node server/data-seeder",
+    "data:destroy": "node server/data-seeder -d",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
