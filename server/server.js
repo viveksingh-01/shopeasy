@@ -3,6 +3,7 @@ import express from 'express';
 import colors from 'colors';
 import connectToDB from './config/db.js';
 import productsRoute from './routes/products-route.js';
+import HttpError from './helpers/http-error.model.js';
 
 const app = express();
 
@@ -15,6 +16,11 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/products', productsRoute);
+
+app.use('/', (req, res, next) => {
+  const error = new HttpError(`Couldn't find the path - ${req.originalUrl}`, 404);
+  next(error);
+});
 
 app.use('/', (error, req, res, next) => {
   if (res.headerSent) {
