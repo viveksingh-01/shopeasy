@@ -4,3 +4,5 @@ class HttpError extends Error {
     this.code = statusCode;
   }
 }
+
+export default HttpError;
