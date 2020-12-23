@@ -3,7 +3,20 @@ import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Rating from './Rating';
 
-const Product = ({ product }) => {
+interface ProductData {
+  _id: string;
+  name: string;
+  image: string;
+  rating: number;
+  numReviews: number;
+  price: number;
+}
+
+interface Props {
+  product: ProductData
+}
+
+const Product: React.FC<Props> = ({ product }) => {
   return (
     <Card className="my-3 p-3">
       <Link to={`/product/${product._id}`}>

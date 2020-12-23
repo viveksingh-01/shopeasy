@@ -3,8 +3,17 @@ import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import Product from '../components/Product';
 
-const HomeScreen = () => {
-  const [products, setProducts] = useState([]);
+interface ProductModel {
+  _id: string;
+  name: string;
+  image: string;
+  rating: number;
+  numReviews: number;
+  price: number;
+}
+
+const HomeScreen: React.FC = () => {
+  const [products, setProducts] = useState<ProductModel[]>([]);
   useEffect(() => {
     const fetchProducts = async () => {
       const { data } = await axios.get('/api/products');

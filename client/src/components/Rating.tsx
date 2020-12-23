@@ -1,7 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const Rating = ({ value, text, color }) => {
+interface Props {
+  value: number,
+  text: string,
+  color?: string
+}
+
+const Rating: React.FC<Props> = ({ value, text, color }) => {
   return (
     <>
       <span>
