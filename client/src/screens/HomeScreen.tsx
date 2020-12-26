@@ -5,11 +5,12 @@ import Product from '../components/Product';
 import { fetchProducts } from '../actions/productsAction';
 import IProduct from '../types/Product';
 import Loader from '../components/Loader';
+import Message from '../components/Message';
 
 const HomeScreen: React.FC = () => {
   const dispatch = useDispatch();
-  const { loading, products } = useSelector(
-    (state: { productsList: { loading: boolean; error: Error; products: IProduct[] } }) => state.productsList
+  const { loading, products, error } = useSelector(
+    (state: { productsList: { loading: boolean; error: string; products: IProduct[] } }) => state.productsList
   );
   useEffect(() => {
     dispatch(fetchProducts());
@@ -19,6 +20,8 @@ const HomeScreen: React.FC = () => {
       <h2>Latest Products</h2>
       {loading ? (
         <Loader />
+      ) : error ? (
+        <Message variant="danger">{error}</Message>
       ) : (
         <Row>
           {products?.map(product => (
