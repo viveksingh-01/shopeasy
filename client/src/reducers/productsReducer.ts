@@ -1,6 +1,9 @@
 import IProduct from '../types/Product';
 
-const productsReducer = (state: { products: IProduct[] } = { products: [] }, action: { type: string; payload: IProduct[] }) => {
+export const productsReducer = (
+  state: { products: IProduct[] } = { products: [] },
+  action: { type: string; payload: IProduct[] }
+) => {
   switch (action.type) {
     case 'products/request':
       return { loading: true, products: [] };
@@ -13,4 +16,18 @@ const productsReducer = (state: { products: IProduct[] } = { products: [] }, act
   }
 };
 
-export default productsReducer;
+export const productDetailReducer = (
+  state: { product: any } = { product: {} },
+  action: { type: string; payload: IProduct }
+) => {
+  switch (action.type) {
+    case 'productDetail/request':
+      return { loading: true, product: {} };
+    case 'productDetail/success':
+      return { loading: false, product: action.payload };
+    case 'productDetail/failure':
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
