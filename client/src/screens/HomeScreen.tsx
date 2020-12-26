@@ -4,10 +4,11 @@ import { Col, Row } from 'react-bootstrap';
 import Product from '../components/Product';
 import { fetchProducts } from '../actions/productsAction';
 import IProduct from '../types/Product';
+import Loader from '../components/Loader';
 
 const HomeScreen: React.FC = () => {
   const dispatch = useDispatch();
-  const { products } = useSelector(
+  const { loading, products } = useSelector(
     (state: { productsList: { loading: boolean; error: Error; products: IProduct[] } }) => state.productsList
   );
   useEffect(() => {
@@ -16,13 +17,17 @@ const HomeScreen: React.FC = () => {
   return (
     <>
       <h2>Latest Products</h2>
-      <Row>
-        {products?.map(product => (
-          <Col key={product._id} sm="12" md="6" lg="4" xl="3">
-            <Product product={product} />
-          </Col>
-        ))}
-      </Row>
+      {loading ? (
+        <Loader />
+      ) : (
+        <Row>
+          {products?.map(product => (
+            <Col key={product._id} sm="12" md="6" lg="4" xl="3">
+              <Product product={product} />
+            </Col>
+          ))}
+        </Row>
+      )}
     </>
   );
 };
