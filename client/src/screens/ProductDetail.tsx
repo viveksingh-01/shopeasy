@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Col, Image, ListGroup, Row } from 'react-bootstrap';
+import { Button, Col, Form, Image, ListGroup, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Rating from '../components/Rating';
 import IProductDetail from '../types/ProductDetail';
@@ -13,6 +13,7 @@ const ProductDetail: React.FC<any> = ({ match }) => {
   const { loading, product, error } = useSelector(
     (state: { productDetail: { loading: boolean; product: IProductDetail; error: string } }) => state.productDetail
   );
+  const [productQty, setProductQty] = useState(0);
   useEffect(() => {
     dispatch(fetchProductDetail(match.params.id));
   }, [dispatch, match.params.id]);
@@ -52,6 +53,20 @@ const ProductDetail: React.FC<any> = ({ match }) => {
                   </Col>
                 </Row>
               </ListGroup.Item>
+              {product?.countInStock > 0 && (
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Quantity:</Col>
+                    <Col>
+                      <Form.Control as="select" value={productQty} onChange={e => setProductQty(+e.target.value)}>
+                        {[...new Array(product?.countInStock).keys()].map(k => (
+                          <option key={k}>{k + 1}</option>
+                        ))}
+                      </Form.Control>
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+              )}
               <ListGroup.Item>
                 <Button className="btn btn-block" disabled={product?.countInStock === 0}>
                   Add to cart
