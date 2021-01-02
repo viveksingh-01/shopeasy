@@ -8,15 +8,21 @@ import { fetchProductDetail } from '../actions/productsAction';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 
-const ProductDetail: React.FC<any> = ({ match }) => {
+const ProductDetail: React.FC<any> = ({ history, match }) => {
   const dispatch = useDispatch();
   const { loading, product, error } = useSelector(
     (state: { productDetail: { loading: boolean; product: IProductDetail; error: string } }) => state.productDetail
   );
   const [productQty, setProductQty] = useState(0);
+
   useEffect(() => {
     dispatch(fetchProductDetail(match.params.id));
   }, [dispatch, match.params.id]);
+
+  const addToCartHandler = () => {
+    history.push(`/cart/${match.params.id}?qty=${productQty}`);
+  };
+
   return (
     <>
       <Link to="/" className="btn btn-light">
@@ -68,7 +74,7 @@ const ProductDetail: React.FC<any> = ({ match }) => {
                 </ListGroup.Item>
               )}
               <ListGroup.Item>
-                <Button className="btn btn-block" disabled={product?.countInStock === 0}>
+                <Button className="btn btn-block" disabled={product?.countInStock === 0} onClick={addToCartHandler}>
                   Add to cart
                 </Button>
               </ListGroup.Item>
